@@ -1,4 +1,4 @@
-package com.timeshuttle.notificationtest;
+package com.example.notificationtest;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

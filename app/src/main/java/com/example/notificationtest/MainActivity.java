@@ -1,4 +1,4 @@
-package com.timeshuttle.notificationtest;
+package com.example.notificationtest;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -15,8 +15,8 @@ import android.util.Log;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.timeshuttle.notificationtest.MyBroadcastReceiver.ACTION_SNOOZE;
-import static com.timeshuttle.notificationtest.MyBroadcastReceiver.EXTRA_NOTIFICATION_ID;
+import static com.example.notificationtest.MyBroadcastReceiver.ACTION_SNOOZE;
+import static com.example.notificationtest.MyBroadcastReceiver.EXTRA_NOTIFICATION_ID;
 
 public class MainActivity extends AppCompatActivity {
 
