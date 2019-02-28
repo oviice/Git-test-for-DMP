@@ -1,4 +1,4 @@
-package com.timeshuttle.notificationtest;
+package com.example.notificationtest;
 
 import org.junit.Test;
 

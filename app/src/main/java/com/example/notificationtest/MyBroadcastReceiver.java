@@ -1,10 +1,9 @@
-package com.timeshuttle.notificationtest;
+package com.example.notificationtest;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
