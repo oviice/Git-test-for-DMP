@@ -10,3 +10,6 @@ If the SNOOZE button is clicked, the notification is canceled and disappears.
 Clicking the notification panel does not cancel the notification.
 Swiping and "clear all" works as usual.
 
+## Resources
+
+https://developer.android.com/training/notify-user/build-notification#java
