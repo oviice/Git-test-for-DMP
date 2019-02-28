@@ -2,4 +2,5 @@
     <string name="app_name">Notification Test</string>
     <string name="channel_name">Channel name</string>
     <string name="channel_description">Channel description</string>
+    <string name="snooze">Snooze</string>
 </resources>
