@@ -36,40 +36,6 @@ public class MainActivity extends AppCompatActivity {
         lo.execute("Test 1", "Test 2", "Test 3");
     }
 
-    static void sendNotification(Context ctx, String title, int notificationId) {
-
-        // Create an explicit intent for an Activity in your app
-        /* Intent intent = new Intent(ctx, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0); */
-
-        Intent snoozeIntent = new Intent(ctx, MyBroadcastReceiver.class);
-        snoozeIntent.setAction(ACTION_SNOOZE);
-        snoozeIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId);
-
-        Log.e(TAG, "snoozeIntent id: " + snoozeIntent.getIntExtra(EXTRA_NOTIFICATION_ID, -1));
-
-        PendingIntent snoozePendingIntent =
-                PendingIntent.getBroadcast(ctx, 0, snoozeIntent, 0);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle(String.format("%s (id %d)", title, notificationId))
-                .setContentText("Much longer text that cannot fit one line...")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(false)
-                // Set the intent that will fire when the user taps the notification
-                // .setContentIntent(pendingIntent)
-                // Add the action button
-                .addAction(R.drawable.ic_launcher_foreground, ctx.getString(R.string.snooze),
-                        snoozePendingIntent);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ctx);
-
-        // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(notificationId, builder.build());
-    }
-
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -106,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for (int i = 0; i < 5; i++) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(200);
                     } catch (InterruptedException e) {
                         Thread.interrupted();
                     }
@@ -117,9 +83,43 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(String... values) {
-            for (String s: values) {
-                sendNotification(ctx, s, notificationId.incrementAndGet());
+            for (String title: values) {
+                sendNotification(title, notificationId.incrementAndGet());
             }
+        }
+
+        void sendNotification(String title, int notificationId) {
+
+            // Create an explicit intent for an Activity in your app
+        /* Intent intent = new Intent(ctx, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(ctx, 0, intent, 0); */
+
+            Intent snoozeIntent = new Intent(ctx, MyBroadcastReceiver.class);
+            snoozeIntent.setAction(ACTION_SNOOZE);
+            snoozeIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId);
+
+            Log.e(TAG, snoozeIntent.getExtras().toString());
+
+            Log.e(TAG, "snoozeIntent id: " + snoozeIntent.getIntExtra(EXTRA_NOTIFICATION_ID, -1));
+
+            PendingIntent snoozePendingIntent =
+                    PendingIntent.getBroadcast(ctx, notificationId, snoozeIntent, 0);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setContentTitle(String.format("%s (id %d)", title, notificationId))
+                    .setContentText("Much longer text that cannot fit one line...")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setAutoCancel(false)
+                    // Add the action button
+                    .addAction(R.drawable.ic_launcher_foreground, ctx.getString(R.string.snooze),
+                            snoozePendingIntent);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ctx);
+
+            // notificationId is a unique int for each notification that you must define
+            notificationManager.notify(notificationId, builder.build());
         }
     }
 }
