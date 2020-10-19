@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 customNotificationClass.sendNotification();
             }
         });
-
+        //Test data
     }
 
     private void createNotificationChannel() {
