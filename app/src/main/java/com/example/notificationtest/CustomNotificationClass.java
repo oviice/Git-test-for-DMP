@@ -26,7 +26,6 @@ public class CustomNotificationClass {
 
 
         Intent notificationIntent = new Intent(context, MainActivity.class);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         //notification message will get at NotificationView
         notificationIntent.putExtra("message", "This is a notification message");
 

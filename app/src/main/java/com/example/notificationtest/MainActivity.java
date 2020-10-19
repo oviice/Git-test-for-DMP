@@ -12,23 +12,31 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "CHANNEL_ID";
     private static final String TAG = "main";
-
+    CustomNotificationClass customNotificationClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         createNotificationChannel();
-        CustomNotificationClass customNotificationClass = new CustomNotificationClass(this, CHANNEL_ID);
+        customNotificationClass = new CustomNotificationClass(this, CHANNEL_ID);
         Log.e(TAG, "onCreate");
+        Button notification=findViewById(R.id.notificationBtn);
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customNotificationClass.sendNotification();
+            }
+        });
 
-        customNotificationClass.sendNotification();
     }
 
     private void createNotificationChannel() {
